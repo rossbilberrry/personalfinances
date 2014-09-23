@@ -1,0 +1,12 @@
+
+
+<%= form_for @transaction, remote: true do |form| %>
+	<% @KINDS = [['credit', 'credit'], ['debit', 'debit']] %>
+	<%= form.label :name %>
+	<%= form.text_field :name %>
+	<%= form.label :amount %>
+	<%= form.number_field :amount %>
+	<%= form.label :kind %>
+	<%= form.select :kind, @KINDS %>
+	<%= form.submit "Add" %>
+<% end %>

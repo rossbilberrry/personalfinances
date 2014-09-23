@@ -1,0 +1,10 @@
+$(document).ready(function() {
+	$("#transactions").append('<%= j render(@transaction)%></tr>');
+
+	$('#transaction-form').hide();
+
+	$('#new-transaction').show();
+
+	$('#total').text('<%= @total %> USD');
+});
+

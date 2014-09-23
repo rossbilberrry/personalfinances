@@ -1,0 +1,6 @@
+<tr id="transaction_<%= transaction.id %>">   
+	<% @columns.each do |column| %> 
+		<td> <%= transaction.send(column) %> </td>
+	<% end %>
+	<td> <%= link_to 'delete', transaction, method: :delete, remote: true %> </td>
+</tr>
