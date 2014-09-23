@@ -1,12 +1,7 @@
-
-
-<%= form_for @transaction, remote: true do |form| %>
-	<% @KINDS = [['credit', 'credit'], ['debit', 'debit']] %>
-	<%= form.label :name %>
-	<%= form.text_field :name %>
-	<%= form.label :amount %>
-	<%= form.number_field :amount %>
-	<%= form.label :kind %>
-	<%= form.select :kind, @KINDS %>
-	<%= form.submit "Add" %>
+<%= form_for @transaction, remote: true, :html => {:class => "form-inline"} do |form| %>
+	<% @KINDS = [['Credit', 'credit'], ['Debit', 'debit']] %>
+	<%= form.text_field :name, {autofocus: 'true', class: "form-control", placeholder: "Enter transaction"}%>
+	<%= form.number_field :amount, class: "form-control", placeholder: "Enter amount" %>
+	<%= form.select :kind, @KINDS, {}, class: 'form-control' %>
+	<%= form.submit "Add Transaction", class: "btn btn-default" %>
 <% end %>
