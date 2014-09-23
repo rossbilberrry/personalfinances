@@ -11,15 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922145549) do
+ActiveRecord::Schema.define(version: 20140923144735) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "transactions", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "kind"
+    t.string   "source",     default: "UniCredit Bank Account"
+    t.date     "valuedate"
     t.string   "name"
     t.integer  "amount"
-    t.string   "kind"
-    t.date     "valuedate"
   end
 
 end
