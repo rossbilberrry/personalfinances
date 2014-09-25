@@ -1,4 +1,7 @@
-$('#<%= dom_id(@transaction) %>').fadeOut();
-$('#total').text('<%= @total %> USD');
-                        
+$(document).ready(function() {
+
+	$('#<%= dom_id(@transaction) %>').fadeOut();
+	$('#total').text('<%= @total %> USD');
+
+});
 
