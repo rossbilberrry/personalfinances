@@ -1,3 +1,5 @@
 class Transaction < ActiveRecord::Base
-	validates :name, presence: true
+	validates :name, :amount, presence: true
+
+	belongs_to :user
 end

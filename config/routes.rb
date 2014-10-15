@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   
-  root 'transactions#index'
+  devise_for :users
+  root 'landing#index'
 
   resources :transactions
 

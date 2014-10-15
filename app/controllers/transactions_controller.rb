@@ -1,4 +1,5 @@
 class TransactionsController < ApplicationController
+	before_action :authenticate_user!
 	before_action :all_transactions, only: [:index, :create]
 	before_action :all_columns, only: [:index, :create]
 	before_action :calculate_total, only: [:index]
@@ -11,9 +12,18 @@ class TransactionsController < ApplicationController
 
 	def create
 		@transaction = Transaction.new(transaction_params)
-		
-		@transaction.save
-		calculate_total
+		@transaction.user = current_user
+
+		if @transaction.save
+			calculate_total
+		else
+			error_message = ''
+			@transaction.errors.each do |err, msg|
+				error_message << err.to_s.capitalize + ' - ' + msg + '. '
+			end
+			flash[:notice] = error_message
+			render js: "window.location = '/transactions'"
+		end
 	end
 
 	def destroy
@@ -28,7 +38,7 @@ class TransactionsController < ApplicationController
 	    end
 
 	    def all_columns
-	      	rejects = ["id", "created_at", "updated_at"]
+	      	rejects = ["id", "created_at", "updated_at", "user_id"]
 			@columns = Transaction.column_names.reject do |column| 
 				rejects.include?(column)
 			end
@@ -41,7 +51,7 @@ class TransactionsController < ApplicationController
 	    def calculate_total
 	    	@total = 0
 	    	all_transactions
-			@transactions.each do |t|
+			@transactions.where(user: current_user).each do |t|
 				@total += t.amount if t.kind == 'debit'
 				@total -= t.amount if t.kind == 'credit'
 			end

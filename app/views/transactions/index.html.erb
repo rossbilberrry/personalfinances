@@ -2,27 +2,27 @@
 
 <div class="container">
 
-	<div class="starter-template">
-    	<h1>Total balance to date</h1>
-    	<p id="total" class="lead"><%= @total %> USD</p>
-	</div>
+  <div class="starter-template">
+      <h1>Hello <%= current_user.name %>, your balance is</h1>
+      <p id="total" class="lead"><%= @total %> USD</p>
+  </div>
 
 
-	<h2 class="sub-header">Cashflow</h2>
+  <h2 class="sub-header">Cashflow</h2>
     <div class="table-responsive">
         <table id="transactions" class="table table-striped">
            <thead>
             <tr>
-            	<% @columns.each do |column| %>
-              		<th> <%= column.capitalize %> </th>
-              	<% end %>	
+              <% @columns.each do |column| %>
+                  <th> <%= column.capitalize %> </th>
+                <% end %> 
               <th> Actions </th>
             </tr>
           </thead>
           <tbody>
-          	<% @transactions.each do |transaction| %>
-            	<%= render transaction %>
-           	<% end %>
+            <% @transactions.where(user: current_user).each do |transaction| %>
+              <%= render transaction %>
+            <% end %>
           </tbody>
         </table>
 
